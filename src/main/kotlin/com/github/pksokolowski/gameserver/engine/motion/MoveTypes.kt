@@ -1,4 +1,4 @@
-package com.github.pksokolowski.gameserver.engine
+package com.github.pksokolowski.gameserver.engine.motion
 
 enum class MoveTypes {
     ANY,

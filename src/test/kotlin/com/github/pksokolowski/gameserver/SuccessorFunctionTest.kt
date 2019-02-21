@@ -1,11 +1,10 @@
 package com.github.pksokolowski.gameserver
 
 import com.github.pksokolowski.gameserver.engine.GameState
-import com.github.pksokolowski.gameserver.engine.Move
-import com.github.pksokolowski.gameserver.engine.possibleMovesFrom
+import com.github.pksokolowski.gameserver.engine.motion.Move
+import com.github.pksokolowski.gameserver.engine.motion.possibleMovesFrom
 import com.github.pksokolowski.gameserver.engine.utils.makeMatrix
 import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertThat
 import org.junit.Test
 
 class SuccessorFunctionTest {

@@ -1,5 +1,7 @@
 package com.github.pksokolowski.gameserver.engine
 
+import com.github.pksokolowski.gameserver.engine.motion.Move
+
 class GameState(private val board: Array<IntArray>, val movesCount: Int = 0) {
 
     val width = board.size

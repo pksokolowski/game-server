@@ -1,12 +1,11 @@
 package com.github.pksokolowski.gameserver
 
 import com.github.pksokolowski.gameserver.engine.GameState
-import com.github.pksokolowski.gameserver.engine.Move
+import com.github.pksokolowski.gameserver.engine.motion.Move
 import com.github.pksokolowski.gameserver.engine.utils.makeMatrix
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Test
-import java.awt.Point
 
 class GameStateTest {
     @Test
