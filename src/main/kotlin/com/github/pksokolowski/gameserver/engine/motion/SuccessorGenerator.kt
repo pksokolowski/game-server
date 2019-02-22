@@ -6,7 +6,7 @@ import com.github.pksokolowski.gameserver.engine.motion.MoveTypes.*
 
 fun possibleMovesFrom(state: GameState): List<Move> {
     val moves = mutableListOf<Move>()
-    val player = if (state.movesCount % 2 == 0) -1 else 1
+    val player = state.playerActive
 
     for (x in 0 until state.width) for (y in 0 until state.height) {
         // skip empty squares
@@ -46,6 +46,11 @@ fun possibleMovesFrom(state: GameState): List<Move> {
     }
 
     return moves
+}
+
+fun possibleMovesFromOrNull(state: GameState): List<Move>?{
+    val moves= possibleMovesFrom(state)
+    return if(moves.isEmpty()) null else moves
 }
 
 private fun addToList(state: GameState, player: Int, list: MutableList<Move>, x: Int, y: Int, direction: MotionDirections, type: MoveTypes, stepsRange: IntRange) {

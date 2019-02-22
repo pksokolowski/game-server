@@ -2,8 +2,14 @@ package com.github.pksokolowski.gameserver.engine
 
 import com.github.pksokolowski.gameserver.engine.motion.Move
 
-class GameState(private val board: Array<IntArray>, val movesCount: Int = 0) {
+class GameState(private val board: Array<IntArray>, movesCount: Int = 0) {
 
+    var movesCount: Int = movesCount
+        private set
+    val playerActive: Int
+        get() {
+            return if (movesCount % 2 == 0) -1 else 1
+        }
     val width = board.size
     val height = board.getOrNull(0)?.size ?: 0
 
@@ -24,6 +30,8 @@ class GameState(private val board: Array<IntArray>, val movesCount: Int = 0) {
 
         this[move.x1, move.y1] = 0
         this[move.x2, move.y2] = start + gain
+
+        movesCount++
     }
 
     fun undoMove(move: Move) {
@@ -34,5 +42,7 @@ class GameState(private val board: Array<IntArray>, val movesCount: Int = 0) {
 
         this[move.x1, move.y1] = initialValue
         this[move.x2, move.y2] = move.capture
+
+        movesCount--
     }
 }
