@@ -55,4 +55,20 @@ class StateGeneratorTest {
         assertEquals(3, state[2, 0])
         assertEquals(4, state[3, 0])
     }
+
+    @Test
+    fun `can generate a vertical, non-square board`(){
+        val state = """
+            -4
+            +1
+            00
+        """.toGameState(1)
+    }
+
+    @Test
+    fun `can generate a horizontal, non-square board`(){
+        val state = """
+            +1 +2 -3
+        """.toGameState(1)
+    }
 }

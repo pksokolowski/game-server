@@ -157,4 +157,17 @@ class SuccessorFunctionTest {
 
         assertFalse(possibleMoves.contains(Move(2, 2, 2, 0, 0)))
     }
+
+    @Test
+    fun `can't capture forwards with a energy 1 piece`(){
+        val state = """
+            00 00 00
+            00 -5 +1
+            00 +1 00
+        """.toGameState(2)
+
+        val possibleMoves = possibleMovesFrom(state)
+
+        assertFalse(possibleMoves.contains(Move(1, 0, 1, 1, -5)))
+    }
 }

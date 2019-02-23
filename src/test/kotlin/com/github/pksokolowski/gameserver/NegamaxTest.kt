@@ -35,9 +35,9 @@ class NegamaxTest {
     fun `returns score being the sum of absolute piece values on the board`() {
         val state = """
             -1 -1
-            +1 +1
+            +1 +2
         """.toGameState()
         val score = negamax(state, 3)
-        assertEquals(4, score)
+        assertEquals(5, score)
     }
 }
