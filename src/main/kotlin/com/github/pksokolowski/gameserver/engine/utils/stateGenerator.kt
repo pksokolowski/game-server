@@ -23,7 +23,7 @@ private fun generateState(board: String, movesCount: Int = 0): GameState {
     val lines = board.split("\n")
     val sampleColumn = lines[0].split(" ")
 
-    val output = Array(lines.size) { IntArray(sampleColumn.size) }
+    val output = Array(sampleColumn.size) { IntArray(lines.size) }
 
     for (i in lines.indices) {
         val columns = lines[i].split(" ")
