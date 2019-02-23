@@ -22,8 +22,8 @@ class SuccessorFunctionTest {
                 Move(0, 0, 0, 1, 0),
                 Move(3, 0, 3, 1, 0)
         )
-        val generatedMoves = possibleMovesFrom(state).toTypedArray()
-        assertArrayEquals(possibleMoves, generatedMoves)
+
+        assertArrayEquals(possibleMoves, possibleMovesFrom(state).toTypedArray())
     }
 
     @Test
@@ -57,8 +57,31 @@ class SuccessorFunctionTest {
                 Move(2, 2, 3, 1, 0),
                 Move(2, 2, 4, 0, 0)
         )
-        val generatedMoves = possibleMovesFrom(state).toTypedArray()
-        assertArrayEquals(possibleMoves, generatedMoves)
+
+        assertArrayEquals(possibleMoves, possibleMovesFrom(state).toTypedArray())
+    }
+
+    @Test
+    fun `respects boundaries of the board`() {
+        val state = """
+            -4 00 00
+            00 00 00
+            00 00 00
+        """.toGameState(1)
+
+        val possibleMoves = arrayOf(
+                // up and left (both reversed) 2 in each direction
+                Move(0, 2, 0, 1, 0),
+                Move(0, 2, 0, 0, 0),
+                Move(0, 2, 1, 2, 0),
+                Move(0, 2, 2, 2, 0),
+
+                // diagonals 2 in each direction
+                Move(0, 2, 1, 1, 0),
+                Move(0, 2, 2, 0, 0)
+        )
+
+        assertArrayEquals(possibleMoves, possibleMovesFrom(state).toTypedArray())
     }
 
     @Test
@@ -67,12 +90,12 @@ class SuccessorFunctionTest {
             this[2][1] = 1
             this[2][2] = 1
         }
-        val state = GameState(matrix, 1)
-        val possibleMoves = arrayOf<Move>(
+        val state = GameState(matrix)
+        val possibleMoves = arrayOf(
                 Move(2, 2, 2, 3, 0)
         )
-        val generatedMoves = possibleMovesFrom(state).toTypedArray()
-        assertArrayEquals(possibleMoves, generatedMoves)
+
+        assertArrayEquals(possibleMoves, possibleMovesFrom(state).toTypedArray())
     }
 
     @Test
@@ -85,8 +108,8 @@ class SuccessorFunctionTest {
         val possibleMoves = arrayOf(
                 Move(2, 7, 2, 6, 0)
         )
-        val generatedMoves = possibleMovesFrom(state).toTypedArray()
-        assertArrayEquals(possibleMoves, generatedMoves)
+
+        assertArrayEquals(possibleMoves, possibleMovesFrom(state).toTypedArray())
     }
 
     @Test
@@ -102,8 +125,8 @@ class SuccessorFunctionTest {
                 Move(3, 3, 2, 4, -2),
                 Move(3, 3, 4, 4, -1)
         )
-        val generatedMoves = possibleMovesFrom(state).toTypedArray()
-        assertArrayEquals(possibleMoves, generatedMoves)
+
+        assertArrayEquals(possibleMoves, possibleMovesFrom(state).toTypedArray())
     }
 
     @Test
@@ -118,7 +141,7 @@ class SuccessorFunctionTest {
                 Move(0, 0, 1, 0, 0),
                 Move(0, 0, 2, 0, 0)
         )
-        val generatedMoves = possibleMovesFrom(state).toTypedArray()
-        assertArrayEquals(possibleMoves, generatedMoves)
+
+        assertArrayEquals(possibleMoves, possibleMovesFrom(state).toTypedArray())
     }
 }
