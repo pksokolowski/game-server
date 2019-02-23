@@ -1,7 +1,9 @@
 package com.github.pksokolowski.gameserver
 
 import com.github.pksokolowski.gameserver.engine.GameState
+import com.github.pksokolowski.gameserver.engine.evaluate
 import com.github.pksokolowski.gameserver.engine.motion.Move
+import com.github.pksokolowski.gameserver.engine.utils.generateState
 import com.github.pksokolowski.gameserver.engine.utils.makeMatrix
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
@@ -82,6 +84,70 @@ class GameStateTest {
 
         assertEquals("failed to back the piece off", 2, state[0, 0])
         assertEquals("failed to restore captured piece", -3, state[1, 1])
+    }
+
+    @Test
+    fun `undoing a move leaves no traces behind`() {
+        val state = generateState("""
+            00 -1
+            +1 00
+        """.trimIndent())
+        val move = Move(0, 0, 1, 1, -1)
+
+        val evaluationBefore = evaluate(state)
+        state.applyMove(move)
+        state.undoMove(move)
+        val evaluationAfter = evaluate(state)
+
+        assertEquals(evaluationBefore, evaluationAfter)
+    }
+
+    @Test
+    fun `undoing a move leaves no traces behind with the minus player capturing`() {
+        val state = generateState("""
+            00 -1
+            +1 00
+        """.trimIndent(), 1)
+        val move = Move(1, 1, 0, 0, 1)
+
+        val evaluationBefore = evaluate(state)
+        state.applyMove(move)
+        state.undoMove(move)
+        val evaluationAfter = evaluate(state)
+
+        assertEquals(evaluationBefore, evaluationAfter)
+    }
+
+    @Test
+    fun `undoing a self_capture move leaves no traces behind`() {
+        val state = generateState("""
+            00 +1
+            +1 00
+        """.trimIndent())
+        val move = Move(0, 0, 1, 1, 1)
+
+        val evaluationBefore = evaluate(state)
+        state.applyMove(move)
+        state.undoMove(move)
+        val evaluationAfter = evaluate(state)
+
+        assertEquals(evaluationBefore, evaluationAfter)
+    }
+
+    @Test
+    fun `undoing a self_capture move leaves no traces behind with the minus player`() {
+        val state = generateState("""
+            00 -1
+            -1 00
+        """.trimIndent())
+        val move = Move(1, 1, 0, 0, -1)
+
+        val evaluationBefore = evaluate(state)
+        state.applyMove(move)
+        state.undoMove(move)
+        val evaluationAfter = evaluate(state)
+
+        assertEquals(evaluationBefore, evaluationAfter)
     }
 
     private fun prepareState(width: Int = 8, height: Int = width): GameState {

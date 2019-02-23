@@ -26,7 +26,7 @@ class GameState(private val board: Array<IntArray>, movesCount: Int = 0) {
         require(start != 0) { "Attempted to move a nonexistent piece." }
 
         val player = if (start > 0) 1 else -1
-        val gain = this[move.x2, move.y2] * player
+        val gain = Math.abs(this[move.x2, move.y2]) * player
 
         this[move.x1, move.y1] = 0
         this[move.x2, move.y2] = start + gain
@@ -38,7 +38,8 @@ class GameState(private val board: Array<IntArray>, movesCount: Int = 0) {
         val destination = this[move.x2, move.y2]
         require(destination != 0) { "Attempted to undo a move of a nonexistent piece." }
 
-        val initialValue = this[move.x2, move.y2] - Math.abs(move.capture)
+        val player = if (destination > 0) 1 else -1
+        val initialValue = this[move.x2, move.y2] - (player * Math.abs(move.capture))
 
         this[move.x1, move.y1] = initialValue
         this[move.x2, move.y2] = move.capture

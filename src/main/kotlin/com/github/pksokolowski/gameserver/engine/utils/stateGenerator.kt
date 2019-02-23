@@ -1,0 +1,30 @@
+package com.github.pksokolowski.gameserver.engine.utils
+
+import com.github.pksokolowski.gameserver.engine.GameState
+
+/**
+ * parses a multi-line string into a board of a GameState.
+ *
+ * takes input like:
+ *
+ * |00 +1 00
+ * |00 00 -2
+ * |00 -1 00
+ *
+ * where | (pipe) is new line start.
+ * Indexes for x and y rise left-right and bottom-top respectively
+ */
+fun generateState(board: String, movesCount: Int = 0): GameState {
+    val lines = board.split("\n")
+    val sampleColumn = lines[0].split(" ")
+
+    val output = Array(lines.size) { IntArray(sampleColumn.size) }
+
+    for (i in lines.indices) {
+        val columns = lines[i].split(" ")
+        for (j in 0 until columns.size) {
+            output[j][lines.lastIndex - i] = columns[j].toInt()
+        }
+    }
+    return GameState(output, movesCount)
+}
