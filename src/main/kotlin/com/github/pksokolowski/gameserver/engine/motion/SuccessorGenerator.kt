@@ -48,9 +48,9 @@ fun possibleMovesFrom(state: GameState): List<Move> {
     return moves
 }
 
-fun possibleMovesFromOrNull(state: GameState): List<Move>?{
-    val moves= possibleMovesFrom(state)
-    return if(moves.isEmpty()) null else moves
+fun possibleMovesFromOrNull(state: GameState): List<Move>? {
+    val moves = possibleMovesFrom(state)
+    return if (moves.isEmpty()) null else moves
 }
 
 private fun addToList(state: GameState, player: Int, list: MutableList<Move>, x: Int, y: Int, direction: MotionDirections, type: MoveTypes, stepsRange: IntRange) {
@@ -62,10 +62,14 @@ private fun addToList(state: GameState, player: Int, list: MutableList<Move>, x:
         if (destinationX !in 0 until state.width || destinationY !in 0 until state.height) return
         val destinationValue = state[destinationX, destinationY]
 
-        if (type == MoveTypes.CAPTURE_ONLY && destinationValue == 0) continue
-        if (type == MoveTypes.NON_CAPTURE && destinationValue != 0) break
+        if (type == CAPTURE_ONLY && destinationValue == 0) continue
+        if (type == NON_CAPTURE && destinationValue != 0) break
 
         val move = Move(x, y, destinationX, destinationY, destinationValue)
         list.add(move)
+
+        // only the closest piece in a straight line can be captured. You can't choose to jump over it
+        // and capture what's behind instead.
+        if (move.capture != 0) return
     }
 }

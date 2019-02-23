@@ -5,7 +5,7 @@ import com.github.pksokolowski.gameserver.engine.motion.Move
 import com.github.pksokolowski.gameserver.engine.motion.possibleMovesFrom
 import com.github.pksokolowski.gameserver.engine.utils.makeMatrix
 import com.github.pksokolowski.gameserver.engine.utils.toGameState
-import org.junit.Assert.assertArrayEquals
+import org.junit.Assert.*
 import org.junit.Test
 
 class SuccessorFunctionTest {
@@ -143,5 +143,18 @@ class SuccessorFunctionTest {
         )
 
         assertArrayEquals(possibleMoves, possibleMovesFrom(state).toTypedArray())
+    }
+
+    @Test
+    fun `one piece cannot jump over another, has to collide`() {
+        val state = """
+            00 00 -4
+            00 +1 +1
+            00 +1 00
+        """.toGameState(1)
+
+        val possibleMoves = possibleMovesFrom(state)
+
+        assertFalse(possibleMoves.contains(Move(2, 2, 2, 0, 0)))
     }
 }
