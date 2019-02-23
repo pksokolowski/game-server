@@ -8,7 +8,7 @@ class GameState(private val board: Array<IntArray>, movesCount: Int = 0) {
         private set
     val playerActive: Int
         get() {
-            return if (movesCount % 2 == 0) -1 else 1
+            return if (movesCount % 2 == 0) 1 else -1
         }
     val width = board.size
     val height = board.getOrNull(0)?.size ?: 0
