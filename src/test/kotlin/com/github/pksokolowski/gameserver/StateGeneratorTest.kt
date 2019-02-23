@@ -1,17 +1,17 @@
 package com.github.pksokolowski.gameserver
 
-import com.github.pksokolowski.gameserver.engine.utils.generateState
+import com.github.pksokolowski.gameserver.engine.utils.toGameState
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class StateGeneratorTest {
     @Test
     fun `generates basic state`() {
-        val state = generateState("""
+        val state = """
             00 00 00
             -1 00 00
             00 +3 00
-        """.trimIndent(), 0)
+        """.toGameState()
 
         assertEquals(-1, state[0, 1])
         assertEquals(3, state[1, 0])
@@ -19,11 +19,11 @@ class StateGeneratorTest {
 
     @Test
     fun `parses all corners correctly`() {
-        val state = generateState("""
+        val state = """
             +3 00 +4
             00 00 00
             +1 00 +2
-        """.trimIndent(), 0)
+        """.toGameState()
 
         assertEquals(1, state[0, 0])
         assertEquals(2, state[2, 0])
@@ -33,12 +33,13 @@ class StateGeneratorTest {
 
     @Test
     fun `generates more complex state`() {
-        val state = generateState("""
+        val state = """
             00 00 00 -4
             -1 00 00 00
             +2 +3 +1 +1
             +1 +2 +3 +4
-        """.trimIndent(), 1)
+        """.toGameState(1)
+
         // row 1
         assertEquals(-4, state[3, 3])
         // row 2

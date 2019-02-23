@@ -2,8 +2,8 @@ package com.github.pksokolowski.gameserver
 
 import com.github.pksokolowski.gameserver.engine.GameState
 import com.github.pksokolowski.gameserver.engine.negamax
-import com.github.pksokolowski.gameserver.engine.utils.generateState
 import com.github.pksokolowski.gameserver.engine.utils.makeMatrix
+import com.github.pksokolowski.gameserver.engine.utils.toGameState
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -22,21 +22,21 @@ class NegamaxTest {
 
     @Test
     fun `finds inevitable victory`() {
-        val state = generateState("""
+        val state = """
             -1 -1 -1
             00 00 00
             +2 +3 +2
-        """.trimIndent())
+        """.toGameState()
         val score = negamax(state, 9)
         assertTrue(score > 0)
     }
 
     @Test
     fun `returns score being the sum of absolute piece values on the board`() {
-        val state = generateState("""
+        val state = """
             -1 -1
             +1 +1
-        """.trimIndent())
+        """.toGameState()
         val score = negamax(state, 3)
         assertEquals(4, score)
     }

@@ -14,7 +14,12 @@ import com.github.pksokolowski.gameserver.engine.GameState
  * where | (pipe) is new line start.
  * Indexes for x and y rise left-right and bottom-top respectively
  */
-fun generateState(board: String, movesCount: Int = 0): GameState {
+fun String.toGameState(movesCount: Int = 0): GameState {
+    val trimmedInput = this.trimIndent()
+    return generateState(trimmedInput, movesCount)
+}
+
+private fun generateState(board: String, movesCount: Int = 0): GameState {
     val lines = board.split("\n")
     val sampleColumn = lines[0].split(" ")
 

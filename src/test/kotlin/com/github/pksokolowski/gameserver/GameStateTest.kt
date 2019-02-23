@@ -3,8 +3,8 @@ package com.github.pksokolowski.gameserver
 import com.github.pksokolowski.gameserver.engine.GameState
 import com.github.pksokolowski.gameserver.engine.evaluate
 import com.github.pksokolowski.gameserver.engine.motion.Move
-import com.github.pksokolowski.gameserver.engine.utils.generateState
 import com.github.pksokolowski.gameserver.engine.utils.makeMatrix
+import com.github.pksokolowski.gameserver.engine.utils.toGameState
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Test
@@ -88,10 +88,10 @@ class GameStateTest {
 
     @Test
     fun `undoing a move leaves no traces behind`() {
-        val state = generateState("""
+        val state = """
             00 -1
             +1 00
-        """.trimIndent())
+        """.toGameState()
         val move = Move(0, 0, 1, 1, -1)
 
         val evaluationBefore = evaluate(state)
@@ -104,10 +104,10 @@ class GameStateTest {
 
     @Test
     fun `undoing a move leaves no traces behind with the minus player capturing`() {
-        val state = generateState("""
+        val state = """
             00 -1
             +1 00
-        """.trimIndent(), 1)
+        """.toGameState(1)
         val move = Move(1, 1, 0, 0, 1)
 
         val evaluationBefore = evaluate(state)
@@ -120,10 +120,10 @@ class GameStateTest {
 
     @Test
     fun `undoing a self_capture move leaves no traces behind`() {
-        val state = generateState("""
+        val state = """
             00 +1
             +1 00
-        """.trimIndent())
+        """.toGameState()
         val move = Move(0, 0, 1, 1, 1)
 
         val evaluationBefore = evaluate(state)
@@ -136,10 +136,10 @@ class GameStateTest {
 
     @Test
     fun `undoing a self_capture move leaves no traces behind with the minus player`() {
-        val state = generateState("""
+        val state = """
             00 -1
             -1 00
-        """.trimIndent())
+        """.toGameState()
         val move = Move(1, 1, 0, 0, -1)
 
         val evaluationBefore = evaluate(state)
