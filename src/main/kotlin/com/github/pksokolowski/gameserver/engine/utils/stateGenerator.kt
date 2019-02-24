@@ -11,7 +11,7 @@ import com.github.pksokolowski.gameserver.engine.GameState
  * |00 00 -2
  * |00 -1 00
  *
- * where | (pipe) is new line start.
+ * where | (pipe) is new line startGame.
  * Indexes for x and y rise left-right and bottom-top respectively
  */
 fun String.toGameState(movesCount: Int = 0): GameState {

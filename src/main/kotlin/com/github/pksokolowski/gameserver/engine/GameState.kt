@@ -2,7 +2,7 @@ package com.github.pksokolowski.gameserver.engine
 
 import com.github.pksokolowski.gameserver.engine.motion.Move
 
-class GameState(private val board: Array<IntArray>, movesCount: Int = 0) {
+class GameState(val board: Array<IntArray>, movesCount: Int = 0) {
 
     var movesCount: Int = movesCount
         private set
