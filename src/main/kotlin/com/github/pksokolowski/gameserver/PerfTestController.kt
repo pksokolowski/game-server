@@ -22,21 +22,6 @@ class PerfTestController {
         return "Finding the best move with depth = <b>$depth</b> from initial game state took $time ms"
     }
 
-
-    @GetMapping("/perfN/{depth}")
-    fun basicTestN(@PathVariable("depth") depth: Int): String {
-        val starter = startGame()
-        val move = starter.possibleMoves[0]
-        val query = EngineQuery(starter.state, move, depthAllowed = depth)
-
-        starter.state.applyMove(move)
-        val time = measureTimeMillis {
-            val response = negamax(starter.state, depth)
-        }
-
-        return "[just negamax] Finding the best move with depth = <b>$depth</b> from initial game state took $time ms"
-    }
-
     @GetMapping("/perfP/{depth}")
     fun basicTestP(@PathVariable("depth") depth: Int): String {
         val starter = startGame()

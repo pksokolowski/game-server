@@ -40,4 +40,11 @@ class NegamaxTest {
         val score = negamax(state, 3)
         assertEquals(5, score)
     }
+
+    private fun negamax(state: GameState, depth: Int, timeLimit: Long = Long.MAX_VALUE): Int {
+        val player = state.playerActive
+        val a = Int.MIN_VALUE + 1
+        val b = Int.MAX_VALUE
+        return negamax(state, depth, a, b, timeLimit, player)
+    }
 }

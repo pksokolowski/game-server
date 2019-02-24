@@ -6,11 +6,12 @@ import com.github.pksokolowski.gameserver.engine.motion.possibleMovesFromOrNull
 fun pickBestMoveFrom(state: GameState, depth: Int, timeLimit: Long = Long.MAX_VALUE, randomize: Boolean = false): Move? {
     val possibleMoves = possibleMovesFromOrNull(state) ?: return null
     var bestMove = possibleMoves[0]
-    var bestScore = Int.MIN_VALUE
+    var bestScore = Int.MIN_VALUE + 1
 
+    val player = state.playerActive
     for (move in possibleMoves) {
         state.applyMove(move)
-        val score = -negamax(state, depth - 1, timeLimit)
+        val score = -negamax(state, depth - 1, -Int.MAX_VALUE, -bestScore, timeLimit, -player)
         state.undoMove(move)
 
         if (score > bestScore) {
