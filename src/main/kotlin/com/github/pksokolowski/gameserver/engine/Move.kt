@@ -1,4 +1,4 @@
-package com.github.pksokolowski.gameserver.engine.motion
+package com.github.pksokolowski.gameserver.engine
 
 data class Move(val x1: Int,
                 val y1: Int,

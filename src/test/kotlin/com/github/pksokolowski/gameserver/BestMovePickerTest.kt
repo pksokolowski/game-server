@@ -1,7 +1,7 @@
 package com.github.pksokolowski.gameserver
 
-import com.github.pksokolowski.gameserver.engine.motion.Move
-import com.github.pksokolowski.gameserver.engine.pickBestMoveFrom
+import com.github.pksokolowski.gameserver.engine.Move
+import com.github.pksokolowski.gameserver.engine.search.pickBestMoveFrom
 import com.github.pksokolowski.gameserver.engine.utils.toGameState
 import org.junit.Assert.assertEquals
 import org.junit.Test

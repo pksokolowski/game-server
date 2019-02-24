@@ -1,8 +1,8 @@
 package com.github.pksokolowski.gameserver
 
 import com.github.pksokolowski.gameserver.engine.GameState
-import com.github.pksokolowski.gameserver.engine.evaluate
-import com.github.pksokolowski.gameserver.engine.evaluateForActivePlayer
+import com.github.pksokolowski.gameserver.engine.search.evaluate
+import com.github.pksokolowski.gameserver.engine.search.evaluateForActivePlayer
 import com.github.pksokolowski.gameserver.engine.utils.makeMatrix
 import com.github.pksokolowski.gameserver.engine.utils.toGameState
 import org.junit.Assert.assertEquals

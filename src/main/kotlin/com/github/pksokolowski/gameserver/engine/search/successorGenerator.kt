@@ -1,8 +1,11 @@
-package com.github.pksokolowski.gameserver.engine.motion
+package com.github.pksokolowski.gameserver.engine.search
 
 import com.github.pksokolowski.gameserver.engine.GameState
+import com.github.pksokolowski.gameserver.engine.Move
+import com.github.pksokolowski.gameserver.engine.motion.*
 import com.github.pksokolowski.gameserver.engine.motion.MotionDirections.*
 import com.github.pksokolowski.gameserver.engine.motion.MoveTypes.*
+import kotlin.math.abs
 
 fun possibleMovesFrom(state: GameState): List<Move> {
     val moves = mutableListOf<Move>()
@@ -20,7 +23,7 @@ fun possibleMovesFrom(state: GameState): List<Move> {
         fun add(direction: MotionDirections, type: MoveTypes, stepsRange: IntRange = 1..1) =
                 addToList(state, player, moves, x, y, direction, type, stepsRange)
 
-        val energy = Math.abs(value)
+        val energy = abs(value)
 
         when (energy) {
             0 -> {

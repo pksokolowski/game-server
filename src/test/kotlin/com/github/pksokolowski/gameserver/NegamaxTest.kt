@@ -1,7 +1,7 @@
 package com.github.pksokolowski.gameserver
 
 import com.github.pksokolowski.gameserver.engine.GameState
-import com.github.pksokolowski.gameserver.engine.negamax
+import com.github.pksokolowski.gameserver.engine.search.negamax
 import com.github.pksokolowski.gameserver.engine.utils.makeMatrix
 import com.github.pksokolowski.gameserver.engine.utils.toGameState
 import org.junit.Assert.assertEquals

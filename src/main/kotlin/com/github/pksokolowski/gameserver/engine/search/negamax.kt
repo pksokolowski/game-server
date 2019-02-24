@@ -1,6 +1,7 @@
-package com.github.pksokolowski.gameserver.engine
+package com.github.pksokolowski.gameserver.engine.search
 
-import com.github.pksokolowski.gameserver.engine.motion.possibleMovesFromOrNull
+import com.github.pksokolowski.gameserver.engine.GameState
+import kotlin.math.max
 
 fun negamax(state: GameState, depthLeft: Int, a: Int, b: Int, timeLimit: Long, player: Int): Int {
     fun evaluate() = evaluateForActivePlayer(state)
@@ -11,9 +12,9 @@ fun negamax(state: GameState, depthLeft: Int, a: Int, b: Int, timeLimit: Long, p
     var score = Int.MIN_VALUE
     for (it in moves) {
         state.applyMove(it)
-        score = Math.max(score, -negamax(state, depthLeft - 1, -b, -newA, timeLimit, -player))
+        score = max(score, -negamax(state, depthLeft - 1, -b, -newA, timeLimit, -player))
         state.undoMove(it)
-        newA = Math.max(score, newA)
+        newA = max(score, newA)
         if (newA >= b) break
     }
 

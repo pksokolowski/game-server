@@ -1,4 +1,6 @@
-package com.github.pksokolowski.gameserver.engine
+package com.github.pksokolowski.gameserver.engine.search
+
+import com.github.pksokolowski.gameserver.engine.GameState
 
 fun evaluate(state: GameState): Int {
     var sum = 0

@@ -1,6 +1,6 @@
 package com.github.pksokolowski.gameserver.engine
 
-import com.github.pksokolowski.gameserver.engine.motion.Move
+import kotlin.math.abs
 
 class GameState(val board: Array<IntArray>, movesCount: Int = 0) {
 
@@ -26,7 +26,7 @@ class GameState(val board: Array<IntArray>, movesCount: Int = 0) {
         require(start != 0) { "Attempted to move a nonexistent piece." }
 
         val player = if (start > 0) 1 else -1
-        val gain = Math.abs(this[move.x2, move.y2]) * player
+        val gain = abs(this[move.x2, move.y2]) * player
 
         this[move.x1, move.y1] = 0
         this[move.x2, move.y2] = start + gain
@@ -39,7 +39,7 @@ class GameState(val board: Array<IntArray>, movesCount: Int = 0) {
         require(destination != 0) { "Attempted to undo a move of a nonexistent piece." }
 
         val player = if (destination > 0) 1 else -1
-        val initialValue = this[move.x2, move.y2] - (player * Math.abs(move.capture))
+        val initialValue = this[move.x2, move.y2] - (player * abs(move.capture))
 
         this[move.x1, move.y1] = initialValue
         this[move.x2, move.y2] = move.capture

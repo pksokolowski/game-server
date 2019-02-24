@@ -1,7 +1,7 @@
-package com.github.pksokolowski.gameserver.engine
+package com.github.pksokolowski.gameserver.engine.search
 
-import com.github.pksokolowski.gameserver.engine.motion.Move
-import com.github.pksokolowski.gameserver.engine.motion.possibleMovesFromOrNull
+import com.github.pksokolowski.gameserver.engine.GameState
+import com.github.pksokolowski.gameserver.engine.Move
 
 fun pickBestMoveFrom(state: GameState, depth: Int, timeLimit: Long = Long.MAX_VALUE, randomize: Boolean = false): Move? {
     val possibleMoves = possibleMovesFromOrNull(state) ?: return null

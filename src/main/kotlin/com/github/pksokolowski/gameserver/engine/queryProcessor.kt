@@ -1,6 +1,7 @@
 package com.github.pksokolowski.gameserver.engine
 
-import com.github.pksokolowski.gameserver.engine.motion.possibleMovesFrom
+import com.github.pksokolowski.gameserver.engine.search.possibleMovesFrom
+import com.github.pksokolowski.gameserver.engine.search.pickBestMoveFrom
 import com.github.pksokolowski.gameserver.engine.utils.getInitialGameState
 
 fun play(query: EngineQuery) = with(query){
@@ -12,7 +13,7 @@ fun play(query: EngineQuery) = with(query){
     state.applyMove(bestMove)
 
     val possibleMoves = possibleMovesFrom(state)
-     EngineResponse(state, possibleMoves)
+    EngineResponse(state, possibleMoves)
 }
 
 fun startGame(): EngineResponse {
