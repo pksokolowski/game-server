@@ -6,7 +6,8 @@ import kotlin.math.max
 fun negamax(state: GameState, depthLeft: Int, a: Int, b: Int, timeLimit: Long, player: Int): Int {
     fun evaluate() = evaluateForActivePlayer(state)
     if (depthLeft == 0) return evaluate()
-    val moves = possibleMovesFromOrNull(state) ?: return evaluate()
+    val moves = possibleMovesFromOrNull(state)?.orderMoves(player)
+            ?: return evaluate()
 
     var newA = a
     var score = Int.MIN_VALUE
