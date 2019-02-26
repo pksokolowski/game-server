@@ -23,9 +23,9 @@ class MoveOrderingTest {
     }
 
     @Test
-    fun `self captures are a last resort, ordered last`() {
+    fun `self captures are on par with non-captures, the order of those two categories of moves doesn't alter`() {
         val actual = mutableListOf(CAPTURE_HUMAN, NEUTRAL, BIG_CAPTURE, CAPTURE).orderMoves(1)
-        val expected = arrayOf(BIG_CAPTURE, CAPTURE, NEUTRAL, CAPTURE_HUMAN)
+        val expected = arrayOf(BIG_CAPTURE, CAPTURE, CAPTURE_HUMAN, NEUTRAL)
 
         assertArrayEquals(expected, actual.toTypedArray())
     }
