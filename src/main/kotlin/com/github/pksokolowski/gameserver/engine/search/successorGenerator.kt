@@ -7,7 +7,7 @@ import com.github.pksokolowski.gameserver.engine.motion.MotionDirections.*
 import com.github.pksokolowski.gameserver.engine.motion.MoveTypes.*
 import kotlin.math.abs
 
-fun possibleMovesFrom(state: GameState): List<Move> {
+fun possibleMovesFrom(state: GameState): MutableList<Move> {
     val moves = mutableListOf<Move>()
     val player = state.playerActive
 
@@ -41,6 +41,8 @@ fun possibleMovesFrom(state: GameState): List<Move> {
                 presetCapturesForwardAndBackwards(::add)
                 presetVerticalAndHorizontal(::add, 1..2)
             }
+            // when adding further energy levels, also update the
+            // move ordering to use proper max energy value
             else -> {
                 presetVerticalAndHorizontal(::add, 1..2)
                 presetDiagonal(::add, 1..4)
@@ -51,7 +53,7 @@ fun possibleMovesFrom(state: GameState): List<Move> {
     return moves
 }
 
-fun possibleMovesFromOrNull(state: GameState): List<Move>? {
+fun possibleMovesFromOrNull(state: GameState): MutableList<Move>? {
     val moves = possibleMovesFrom(state)
     return if (moves.isEmpty()) null else moves
 }

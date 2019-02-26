@@ -8,7 +8,7 @@ import org.junit.Test
 class MoveOrderingTest {
     @Test
     fun `orders captures first, for human player`() {
-        val actual = listOf(NEUTRAL, BIG_CAPTURE, CAPTURE).orderMoves(1)
+        val actual = mutableListOf(NEUTRAL, BIG_CAPTURE, CAPTURE).orderMoves(1)
         val expected = arrayOf(BIG_CAPTURE, CAPTURE, NEUTRAL)
 
         assertArrayEquals(expected, actual.toTypedArray())
@@ -16,7 +16,7 @@ class MoveOrderingTest {
 
     @Test
     fun `orders captures first, for AI player`() {
-        val actual = listOf(NEUTRAL, BIG_CAPTURE_HUMAN, CAPTURE_HUMAN).orderMoves(-1)
+        val actual = mutableListOf(NEUTRAL, BIG_CAPTURE_HUMAN, CAPTURE_HUMAN).orderMoves(-1)
         val expected = arrayOf(BIG_CAPTURE_HUMAN, CAPTURE_HUMAN, NEUTRAL)
 
         assertArrayEquals(expected, actual.toTypedArray())
@@ -24,7 +24,7 @@ class MoveOrderingTest {
 
     @Test
     fun `self captures are a last resort, ordered last`() {
-        val actual = listOf(CAPTURE_HUMAN, NEUTRAL, BIG_CAPTURE, CAPTURE).orderMoves(1)
+        val actual = mutableListOf(CAPTURE_HUMAN, NEUTRAL, BIG_CAPTURE, CAPTURE).orderMoves(1)
         val expected = arrayOf(BIG_CAPTURE, CAPTURE, NEUTRAL, CAPTURE_HUMAN)
 
         assertArrayEquals(expected, actual.toTypedArray())
