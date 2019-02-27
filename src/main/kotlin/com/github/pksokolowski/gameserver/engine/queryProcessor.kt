@@ -7,9 +7,8 @@ import com.github.pksokolowski.gameserver.engine.utils.getInitialGameState
 fun play(query: EngineQuery) = with(query){
     state.applyMove(chosenMove)
 
-    // todo allow use of time limit alongside the maxDepth setting. Notice you need to convert timeAllowed to a deadline!
     // todo consider better way to handle end game - include points and a flag?
-    val bestMove = pickBestMoveFrom(state, depthAllowed) ?: return EngineResponse(state, listOf())
+    val bestMove = pickBestMoveFrom(state, depthAllowed, timeAllowed) ?: return EngineResponse(state, listOf())
     state.applyMove(bestMove)
 
     val possibleMoves = possibleMovesFrom(state)
