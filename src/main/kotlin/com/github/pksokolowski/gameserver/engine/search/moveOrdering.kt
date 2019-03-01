@@ -1,10 +1,8 @@
 package com.github.pksokolowski.gameserver.engine.search
 
 import com.github.pksokolowski.gameserver.engine.Move
-import kotlin.math.max
-import kotlin.math.min
-
-private const val MAX_ENERGY = 4
+import com.github.pksokolowski.gameserver.engine.utils.MAX_ENERGY
+import com.github.pksokolowski.gameserver.engine.utils.bound
 
 fun MutableList<Move>.orderMoves(player: Int): MutableList<Move> {
     return intSort(player)
@@ -30,5 +28,3 @@ private fun MutableList<Move>.intSort(player: Int): MutableList<Move> {
 
     return this
 }
-
-private fun Int.bound(minValue: Int, maxValue: Int) = max(minValue, min(maxValue, this))

@@ -65,12 +65,13 @@ private fun addToList(state: GameState, player: Int, list: MutableList<Move>, x:
         val destinationX = x + (s * dx * player)
         val destinationY = y + (s * dy * player)
         if (destinationX !in 0 until state.width || destinationY !in 0 until state.height) return
+        val initialValue = state[x, y]
         val destinationValue = state[destinationX, destinationY]
 
         if (type == CAPTURE_ONLY && destinationValue == 0) continue
         if (type == NON_CAPTURE && destinationValue != 0) break
 
-        val move = Move(x, y, destinationX, destinationY, destinationValue)
+        val move = Move(initialValue, x, y, destinationX, destinationY, destinationValue)
         list.add(move)
 
         // only the closest piece in a straight line can be captured. You can't choose to jump over it

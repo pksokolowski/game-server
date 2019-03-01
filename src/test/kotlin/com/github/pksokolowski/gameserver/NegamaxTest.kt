@@ -2,6 +2,7 @@ package com.github.pksokolowski.gameserver
 
 import com.github.pksokolowski.gameserver.engine.GameState
 import com.github.pksokolowski.gameserver.engine.search.negamax
+import com.github.pksokolowski.gameserver.engine.utils.MAX_ENERGY
 import com.github.pksokolowski.gameserver.engine.utils.makeMatrix
 import com.github.pksokolowski.gameserver.engine.utils.toGameState
 import org.junit.Assert.assertEquals
@@ -32,13 +33,13 @@ class NegamaxTest {
     }
 
     @Test
-    fun `returns score being the sum of absolute piece values on the board`() {
+    fun `returns score of MAX_ENERGY value when plus player takes all into one piece`() {
         val state = """
             -1 -1
             +1 +2
         """.toGameState()
         val score = negamax(state, 3)
-        assertEquals(5, score)
+        assertEquals(MAX_ENERGY, score)
     }
 
     private fun negamax(state: GameState, depth: Int, timeLimit: Long = Long.MAX_VALUE): Int {

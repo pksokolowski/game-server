@@ -65,11 +65,23 @@ class GameStateTest {
         val matrix = makeMatrix()
         matrix[1][1] = 3
         val state = GameState(matrix)
-        val move = Move(1, 1, 2, 2, 0)
+        val move = Move(3, 1, 1, 2, 2, 0)
         state.applyMove(move)
 
         assertEquals(3, state[2, 2])
         assertEquals(0, state[1, 1])
+    }
+
+    @Test
+    fun `applying a move doesn't exceed max meaningful energy`() {
+        val matrix = makeMatrix()
+        matrix[1][1] = 3
+        matrix[2][1] = -2
+        val state = GameState(matrix)
+        val move = Move(3, 1, 1, 2, 1, -2)
+        state.applyMove(move)
+
+        assertEquals(4, state[2, 1])
     }
 
     @Test
@@ -78,7 +90,7 @@ class GameStateTest {
         matrix[1][1] = 5
         val state = GameState(matrix)
 
-        val move = Move(0, 0, 1, 1, -3)
+        val move = Move(2, 0, 0, 1, 1, -3)
         state.undoMove(move)
 
         assertEquals("failed to back the piece off", 2, state[0, 0])
@@ -91,7 +103,7 @@ class GameStateTest {
             00 -1
             +1 00
         """.toGameState()
-        val move = Move(0, 0, 1, 1, -1)
+        val move = Move(1, 0, 0, 1, 1, -1)
 
         val evaluationBefore = evaluate(state)
         state.applyMove(move)
@@ -107,7 +119,7 @@ class GameStateTest {
             00 -1
             +1 00
         """.toGameState(1)
-        val move = Move(1, 1, 0, 0, 1)
+        val move = Move(-1, 1, 1, 0, 0, 1)
 
         val evaluationBefore = evaluate(state)
         state.applyMove(move)
@@ -123,7 +135,7 @@ class GameStateTest {
             00 +1
             +1 00
         """.toGameState()
-        val move = Move(0, 0, 1, 1, 1)
+        val move = Move(1, 0, 0, 1, 1, 1)
 
         val evaluationBefore = evaluate(state)
         state.applyMove(move)
@@ -139,7 +151,7 @@ class GameStateTest {
             00 -1
             -1 00
         """.toGameState()
-        val move = Move(1, 1, 0, 0, -1)
+        val move = Move(-1, 1, 1, 0, 0, -1)
 
         val evaluationBefore = evaluate(state)
         state.applyMove(move)
@@ -150,17 +162,17 @@ class GameStateTest {
     }
 
     @Test
-    fun `copy() does a deep copy`(){
+    fun `copy() does a deep copy`() {
         val originalState = """
             00 +1 +1 +1
             00 -1 -1 -1
         """.toGameState(3)
         val copy = originalState.copy()
 
-        val move = Move(1, 0, 2, 1, 1)
+        val move = Move(-1, 1, 0, 2, 1, 1)
         copy.applyMove(move)
 
-        assertEquals(-1, originalState[1,0])
+        assertEquals(-1, originalState[1, 0])
     }
 
     private fun prepareState(width: Int = 8, height: Int = width): GameState {

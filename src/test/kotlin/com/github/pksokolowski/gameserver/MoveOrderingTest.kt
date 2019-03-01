@@ -31,10 +31,10 @@ class MoveOrderingTest {
     }
 
     companion object {
-        val NEUTRAL = Move(1, 1, 2, 2, 0)
-        val CAPTURE = Move(1, 2, 2, 3, -1)
-        val BIG_CAPTURE = Move(1, 2, 2, 3, -4)
-        val CAPTURE_HUMAN = Move(1, 2, 2, 3, 1)
-        val BIG_CAPTURE_HUMAN = Move(1, 2, 2, 3, 4)
+        val NEUTRAL = Move(4, 1, 1, 2, 2, 0)
+        val CAPTURE = Move(4, 1, 2, 2, 3, -1)
+        val BIG_CAPTURE = Move(4, 1, 2, 2, 3, -4)
+        val CAPTURE_HUMAN = Move(-4, 1, 2, 2, 3, 1)
+        val BIG_CAPTURE_HUMAN = Move(-4, 1, 2, 2, 3, 4)
     }
 }

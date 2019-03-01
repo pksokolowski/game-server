@@ -1,5 +1,7 @@
 package com.github.pksokolowski.gameserver.engine
 
+import com.github.pksokolowski.gameserver.engine.utils.MAX_ENERGY
+import com.github.pksokolowski.gameserver.engine.utils.bound
 import kotlin.math.abs
 
 class GameState(private val board: Array<IntArray>, movesCount: Int = 0) {
@@ -26,28 +28,19 @@ class GameState(private val board: Array<IntArray>, movesCount: Int = 0) {
     }
 
     fun applyMove(move: Move) {
-        val start = this[move.x1, move.y1]
-        require(start != 0) { "Attempted to move a nonexistent piece." }
+        require(this[move.x1, move.y1] != 0) { "Attempted to move a nonexistent piece." }
 
-        val player = if (start > 0) 1 else -1
-        val gain = abs(this[move.x2, move.y2]) * player
-
+        val player = if (move.movedPiece > 0) 1 else -1
         this[move.x1, move.y1] = 0
-        this[move.x2, move.y2] = start + gain
-
+        this[move.x2, move.y2] = (move.movedPiece + abs(move.capture) * player).bound(-MAX_ENERGY, MAX_ENERGY)
         movesCount++
     }
 
     fun undoMove(move: Move) {
-        val destination = this[move.x2, move.y2]
-        require(destination != 0) { "Attempted to undo a move of a nonexistent piece." }
+        require(this[move.x2, move.y2] != 0) { "Attempted to undo a move of a nonexistent piece." }
 
-        val player = if (destination > 0) 1 else -1
-        val initialValue = this[move.x2, move.y2] - (player * abs(move.capture))
-
-        this[move.x1, move.y1] = initialValue
+        this[move.x1, move.y1] = move.movedPiece
         this[move.x2, move.y2] = move.capture
-
         movesCount--
     }
 }
