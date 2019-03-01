@@ -2,7 +2,9 @@ package com.github.pksokolowski.gameserver.engine
 
 import kotlin.math.abs
 
-class GameState(val board: Array<IntArray>, movesCount: Int = 0) {
+class GameState(private val board: Array<IntArray>, movesCount: Int = 0) {
+
+    fun getBoard() = Array(board.size) { board[it].copyOf() }
 
     var movesCount: Int = movesCount
         private set
