@@ -4,6 +4,8 @@ import kotlin.math.abs
 
 class GameState(private val board: Array<IntArray>, movesCount: Int = 0) {
 
+    fun copy() = GameState(getBoard(), movesCount)
+
     fun getBoard() = Array(board.size) { board[it].copyOf() }
 
     var movesCount: Int = movesCount

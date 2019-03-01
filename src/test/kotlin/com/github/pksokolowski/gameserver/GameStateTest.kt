@@ -5,8 +5,7 @@ import com.github.pksokolowski.gameserver.engine.search.evaluate
 import com.github.pksokolowski.gameserver.engine.Move
 import com.github.pksokolowski.gameserver.engine.utils.makeMatrix
 import com.github.pksokolowski.gameserver.engine.utils.toGameState
-import org.junit.Assert.assertEquals
-import org.junit.Assert.fail
+import org.junit.Assert.*
 import org.junit.Test
 
 class GameStateTest {
@@ -148,6 +147,20 @@ class GameStateTest {
         val evaluationAfter = evaluate(state)
 
         assertEquals(evaluationBefore, evaluationAfter)
+    }
+
+    @Test
+    fun `copy() does a deep copy`(){
+        val originalState = """
+            00 +1 +1 +1
+            00 -1 -1 -1
+        """.toGameState(3)
+        val copy = originalState.copy()
+
+        val move = Move(1, 0, 2, 1, 1)
+        copy.applyMove(move)
+
+        assertEquals(-1, originalState[1,0])
     }
 
     private fun prepareState(width: Int = 8, height: Int = width): GameState {
