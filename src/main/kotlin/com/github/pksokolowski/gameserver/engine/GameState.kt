@@ -27,7 +27,7 @@ class GameState(private val board: Array<IntArray>, movesCount: Int = 0) {
         return board[x][y]
     }
 
-    fun applyMove(move: Move) {
+    internal fun applyMove(move: Move) {
         require(this[move.x1, move.y1] != 0) { "Attempted to move a nonexistent piece." }
 
         val player = if (move.movedPiece > 0) 1 else -1
@@ -36,11 +36,13 @@ class GameState(private val board: Array<IntArray>, movesCount: Int = 0) {
         movesCount++
     }
 
-    fun undoMove(move: Move) {
+    internal fun undoMove(move: Move) {
         require(this[move.x2, move.y2] != 0) { "Attempted to undo a move of a nonexistent piece." }
 
         this[move.x1, move.y1] = move.movedPiece
         this[move.x2, move.y2] = move.capture
         movesCount--
     }
+
+    fun withMove(move: Move) = copy().apply { applyMove(move) }
 }
