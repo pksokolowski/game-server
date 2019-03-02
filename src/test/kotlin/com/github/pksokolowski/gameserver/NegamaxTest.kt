@@ -24,10 +24,10 @@ class NegamaxTest {
     @Test
     fun `finds inevitable victory`() {
         val state = """
-            -1 -1 -1
-            00 00 00
             +2 +3 +2
-        """.toGameState()
+            00 00 00
+            -1 -1 -1
+        """.toGameState(1)
         val score = negamax(state, 9)
         assertTrue(score > 0)
     }
@@ -35,9 +35,9 @@ class NegamaxTest {
     @Test
     fun `returns score of MAX_ENERGY value when plus player takes all into one piece`() {
         val state = """
-            -1 -1
             +1 +2
-        """.toGameState()
+            -1 -1
+        """.toGameState(1)
         val score = negamax(state, 3)
         assertEquals(MAX_ENERGY, score)
     }

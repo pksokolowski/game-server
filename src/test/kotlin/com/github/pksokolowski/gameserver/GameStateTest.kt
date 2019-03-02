@@ -100,8 +100,8 @@ class GameStateTest {
     @Test
     fun `undoing a move leaves no traces behind`() {
         val state = """
-            00 -1
             +1 00
+            00 -1
         """.toGameState()
         val move = Move(1, 0, 0, 1, 1, -1)
 
@@ -114,11 +114,11 @@ class GameStateTest {
     }
 
     @Test
-    fun `undoing a move leaves no traces behind with the minus player capturing`() {
+    fun `undoing a move leaves no traces behind with the minus (human) player capturing`() {
         val state = """
-            00 -1
             +1 00
-        """.toGameState(1)
+            00 -1
+        """.toGameState()
         val move = Move(-1, 1, 1, 0, 0, 1)
 
         val evaluationBefore = evaluate(state)
@@ -132,9 +132,9 @@ class GameStateTest {
     @Test
     fun `undoing a self_capture move leaves no traces behind`() {
         val state = """
-            00 +1
             +1 00
-        """.toGameState()
+            00 +1
+        """.toGameState(1)
         val move = Move(1, 0, 0, 1, 1, 1)
 
         val evaluationBefore = evaluate(state)
@@ -148,8 +148,8 @@ class GameStateTest {
     @Test
     fun `undoing a self_capture move leaves no traces behind with the minus player`() {
         val state = """
-            00 -1
             -1 00
+            00 -1
         """.toGameState()
         val move = Move(-1, 1, 1, 0, 0, -1)
 
@@ -164,8 +164,8 @@ class GameStateTest {
     @Test
     fun `copy() does a deep copy`() {
         val originalState = """
-            00 +1 +1 +1
             00 -1 -1 -1
+            00 +1 +1 +1
         """.toGameState(3)
         val copy = originalState.copy()
 

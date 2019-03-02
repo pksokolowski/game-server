@@ -28,7 +28,7 @@ private fun generateState(board: String, movesCount: Int = 0): GameState {
     for (i in lines.indices) {
         val columns = lines[i].split(" ")
         for (j in 0 until columns.size) {
-            output[j][lines.lastIndex - i] = columns[j].toInt()
+            output[j][i] = columns[j].toInt()
         }
     }
     return GameState(output, movesCount)

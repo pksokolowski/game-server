@@ -14,7 +14,7 @@ class StateGeneratorTest {
         """.toGameState()
 
         assertEquals(-1, state[0, 1])
-        assertEquals(3, state[1, 0])
+        assertEquals(3, state[1, 2])
     }
 
     @Test
@@ -25,10 +25,10 @@ class StateGeneratorTest {
             +1 00 +2
         """.toGameState()
 
-        assertEquals(1, state[0, 0])
-        assertEquals(2, state[2, 0])
-        assertEquals(3, state[0, 2])
-        assertEquals(4, state[2, 2])
+        assertEquals(1, state[0, 2])
+        assertEquals(2, state[2, 2])
+        assertEquals(3, state[0, 0])
+        assertEquals(4, state[2, 0])
     }
 
     @Test
@@ -49,10 +49,10 @@ class StateGeneratorTest {
         assertEquals(4, state[3, 2])
         assertEquals(5, state[4, 2])
         // vertical line
-        assertEquals(1, state[2, 4])
-        assertEquals(2, state[2, 3])
-        assertEquals(4, state[2, 1])
-        assertEquals(5, state[2, 0])
+        assertEquals(1, state[2, 0])
+        assertEquals(2, state[2, 1])
+        assertEquals(4, state[2, 3])
+        assertEquals(5, state[2, 4])
     }
 
     @Test
@@ -62,22 +62,22 @@ class StateGeneratorTest {
             -1 00 00 00
             +2 +3 +1 +1
             +1 +2 +3 +4
-        """.toGameState(1)
+        """.toGameState()
 
         // row 1
-        assertEquals(-4, state[3, 3])
+        assertEquals(-4, state[3, 0])
         // row 2
-        assertEquals(-1, state[0, 2])
+        assertEquals(-1, state[0, 1])
         // row 3
-        assertEquals(2, state[0, 1])
-        assertEquals(3, state[1, 1])
-        assertEquals(1, state[2, 1])
-        assertEquals(1, state[3, 1])
+        assertEquals(2, state[0, 2])
+        assertEquals(3, state[1, 2])
+        assertEquals(1, state[2, 2])
+        assertEquals(1, state[3, 2])
         // row 4
-        assertEquals(1, state[0, 0])
-        assertEquals(2, state[1, 0])
-        assertEquals(3, state[2, 0])
-        assertEquals(4, state[3, 0])
+        assertEquals(1, state[0, 3])
+        assertEquals(2, state[1, 3])
+        assertEquals(3, state[2, 3])
+        assertEquals(4, state[3, 3])
     }
 
     @Test
@@ -105,13 +105,13 @@ class StateGeneratorTest {
             -2 -3
         """.toGameState(1)
 
-        assertEquals(-2, state[0, 0])
-        assertEquals(-3, state[1, 0])
-        assertEquals(0, state[0, 1])
-        assertEquals(-1, state[1, 1])
-        assertEquals(1, state[0, 2])
-        assertEquals(2, state[1, 2])
-        assertEquals(-4, state[0, 3])
-        assertEquals(0, state[1, 3])
+        assertEquals(-2, state[0, 3])
+        assertEquals(-3, state[1, 3])
+        assertEquals(0, state[0, 2])
+        assertEquals(-1, state[1, 2])
+        assertEquals(1, state[0, 1])
+        assertEquals(2, state[1, 1])
+        assertEquals(-4, state[0, 0])
+        assertEquals(0, state[1, 0])
     }
 }

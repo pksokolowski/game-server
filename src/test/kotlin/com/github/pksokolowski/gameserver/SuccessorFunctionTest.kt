@@ -12,18 +12,18 @@ class SuccessorFunctionTest {
     @Test
     fun `generates possible moves and no others`() {
         val state = """
-            00 00 00 00
-            00 00 00 00
-            00 00 00 00
             +1 00 00 +1
-        """.toGameState()
+            00 00 00 00
+            00 00 00 00
+            00 00 00 00
+        """.toGameState(1)
 
-        val possibleMoves = arrayOf(
+        val possibleMoves = listOf(
                 Move(1, 0, 0, 0, 1, 0),
                 Move(1, 3, 0, 3, 1, 0)
         )
 
-        assertArrayEquals(possibleMoves, possibleMovesFrom(state).toTypedArray())
+        assertTrue(possibleMovesFrom(state).containsAll(possibleMoves))
     }
 
     @Test
@@ -31,57 +31,57 @@ class SuccessorFunctionTest {
         val state = """
             00 00 00 00 00
             00 00 00 00 00
-            00 00 +4 00 00
+            00 00 -4 00 00
             00 00 00 00 00
             00 00 00 00 00
         """.toGameState()
 
-        val possibleMoves = arrayOf(
+        val possibleMoves = listOf(
                 // up, down, left, right; 2 in each direction
-                Move(4, 2, 2, 2, 3, 0),
-                Move(4, 2, 2, 2, 4, 0),
-                Move(4, 2, 2, 2, 1, 0),
-                Move(4, 2, 2, 2, 0, 0),
-                Move(4, 2, 2, 1, 2, 0),
-                Move(4, 2, 2, 0, 2, 0),
-                Move(4, 2, 2, 3, 2, 0),
-                Move(4, 2, 2, 4, 2, 0),
+                Move(-4, 2, 2, 2, 1, 0),
+                Move(-4, 2, 2, 2, 0, 0),
+                Move(-4, 2, 2, 2, 3, 0),
+                Move(-4, 2, 2, 2, 4, 0),
+                Move(-4, 2, 2, 3, 2, 0),
+                Move(-4, 2, 2, 4, 2, 0),
+                Move(-4, 2, 2, 1, 2, 0),
+                Move(-4, 2, 2, 0, 2, 0),
 
                 // diagonals 2 in each direction
-                Move(4, 2, 2, 1, 3, 0),
-                Move(4, 2, 2, 0, 4, 0),
-                Move(4, 2, 2, 3, 3, 0),
-                Move(4, 2, 2, 4, 4, 0),
-                Move(4, 2, 2, 1, 1, 0),
-                Move(4, 2, 2, 0, 0, 0),
-                Move(4, 2, 2, 3, 1, 0),
-                Move(4, 2, 2, 4, 0, 0)
+                Move(-4, 2, 2, 3, 1, 0),
+                Move(-4, 2, 2, 4, 0, 0),
+                Move(-4, 2, 2, 1, 1, 0),
+                Move(-4, 2, 2, 0, 0, 0),
+                Move(-4, 2, 2, 3, 3, 0),
+                Move(-4, 2, 2, 4, 4, 0),
+                Move(-4, 2, 2, 1, 3, 0),
+                Move(-4, 2, 2, 0, 4, 0)
         )
 
-        assertArrayEquals(possibleMoves, possibleMovesFrom(state).toTypedArray())
+        assertTrue(possibleMovesFrom(state).containsAll(possibleMoves))
     }
 
     @Test
     fun `respects boundaries of the board`() {
         val state = """
-            -4 00 00
             00 00 00
             00 00 00
-        """.toGameState(1)
+            00 00 -4
+        """.toGameState(0)
 
-        val possibleMoves = arrayOf(
+        val possibleMoves = listOf(
                 // up and left (both reversed) 2 in each direction
-                Move(-4, 0, 2, 0, 1, 0),
-                Move(-4, 0, 2, 0, 0, 0),
-                Move(-4, 0, 2, 1, 2, 0),
-                Move(-4, 0, 2, 2, 2, 0),
+                Move(-4, 2, 2, 2, 1, 0),
+                Move(-4, 2, 2, 2, 0, 0),
+                Move(-4, 2, 2, 1, 2, 0),
+                Move(-4, 2, 2, 0, 2, 0),
 
                 // diagonals 2 in each direction
-                Move(-4, 0, 2, 1, 1, 0),
-                Move(-4, 0, 2, 2, 0, 0)
+                Move(-4, 2, 2, 1, 1, 0),
+                Move(-4, 2, 2, 2, 0, 0)
         )
-
-        assertArrayEquals(possibleMoves, possibleMovesFrom(state).toTypedArray())
+        val generatedMoves = possibleMovesFrom(state)
+        assertTrue(generatedMoves.containsAll(possibleMoves))
     }
 
     @Test
@@ -90,7 +90,7 @@ class SuccessorFunctionTest {
             this[2][1] = 1
             this[2][2] = 1
         }
-        val state = GameState(matrix)
+        val state = GameState(matrix, 1)
         val possibleMoves = arrayOf(
                 Move(1, 2, 2, 2, 3, 0)
         )
@@ -104,7 +104,7 @@ class SuccessorFunctionTest {
             this[2][0] = 1
             this[2][7] = -1
         }
-        val state = GameState(matrix, 1)
+        val state = GameState(matrix, 2)
         val possibleMoves = arrayOf(
                 Move(-1, 2, 7, 2, 6, 0)
         )
@@ -119,7 +119,7 @@ class SuccessorFunctionTest {
             this[4][4] = -1
             this[2][4] = -2
         }
-        val state = GameState(matrix)
+        val state = GameState(matrix, 1)
         val possibleMoves = arrayOf(
                 Move(1, 3, 3, 3, 4, 0),
                 Move(1, 3, 3, 2, 4, -2),
@@ -134,7 +134,7 @@ class SuccessorFunctionTest {
         val matrix = makeMatrix(8, 8).apply {
             this[0][0] = 3
         }
-        val state = GameState(matrix)
+        val state = GameState(matrix, 1)
         val possibleMoves = arrayOf(
                 Move(3, 0, 0, 0, 1, 0),
                 Move(3, 0, 0, 0, 2, 0),
@@ -151,7 +151,7 @@ class SuccessorFunctionTest {
             00 00 -4
             00 +1 +1
             00 +1 00
-        """.toGameState(1)
+        """.toGameState(2)
 
         val possibleMoves = possibleMovesFrom(state)
 
@@ -161,10 +161,10 @@ class SuccessorFunctionTest {
     @Test
     fun `can't capture forwards with a energy 1 piece`() {
         val state = """
-            00 00 00
-            00 -5 +1
             00 +1 00
-        """.toGameState(2)
+            +1 -5 00
+            00 00 00
+        """.toGameState(1)
 
         val possibleMoves = possibleMovesFrom(state)
 

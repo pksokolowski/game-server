@@ -40,7 +40,7 @@ class EvaluationTest {
             this[4][7] = 1
             this[5][7] = 1
         }
-        val state = GameState(matrix, 1)
+        val state = GameState(matrix, 0)
 
         assertEquals(3, evaluateForActivePlayer(state))
     }
@@ -56,7 +56,7 @@ class EvaluationTest {
             00 00 00 00 00 00 00 00
             00 -2 00 00 00 00 00 00
             -3 00 00 00 +1 00 00 +2
-        """.toGameState()
+        """.toGameState(1)
 
         assertEquals(-4, evaluateForActivePlayer(state))
     }
